@@ -6,15 +6,15 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/10 17:32:00 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/10 17:40:44 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	error_msg(char	*msg)
+void	error_msg(char	*str)
 {
-	perror(msg);
+	perror(str);
 	exit (EXIT_FAILURE);
 }
 
