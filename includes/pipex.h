@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/10 17:20:58 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/11 20:00:04 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/types.h> /*pid_t*/
 # include <sys/wait.h> /*waitpid*/
 # include <stdio.h> /*perror*/
-# include <errno.h>
 # include "../libft/libft.h"
 
 # define ERROR_INPUT "Invaild Argument"
@@ -37,7 +36,7 @@ typedef struct s_pipex
 	int		outfile;
 	char	**cmd_dirs;
 	char	**cmd_args;
-	char	*cmd;
+	char	*command;
 }t_pipex;
 
 /*pipex.c*/

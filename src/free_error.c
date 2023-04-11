@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/10 17:40:44 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/11 19:58:40 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	free_parent(t_pipex *pipex)
 	int	i;
 
 	i = 0;
-	close(pipex->infile);
-	close(pipex->outfile);
 	while (pipex->cmd_dirs[i])
 	{
 		free(pipex->cmd_dirs[i]);
 		i++;
 	}
 	free(pipex->cmd_dirs);
+	close(pipex->infile);
+	close(pipex->outfile);
 }
 
 void	free_child(t_pipex *pipex)
@@ -44,5 +44,5 @@ void	free_child(t_pipex *pipex)
 		i++;
 	}
 	free(pipex->cmd_args);
-	free(pipex->cmd);
+	free(pipex->command);
 }

@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/03/27 09:54:24 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/10 17:40:22 by eucho         ########   odam.nl         */
+/*   Created: 2023/04/11 19:55:57 by eucho         #+#    #+#                 */
+/*   Updated: 2023/04/11 19:56:00 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,20 @@ void	get_files(t_pipex *pipex, int argc, char *argv[])
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
+	pid_t	pid1;
+	pid_t	pid2;
 
 	if (argc != 5)
-		return (write(2, "Invalid argument", 16));
+		return (write(STDERR_FILENO, "Invalid argument", 16));
 	get_files(&pipex, argc, argv);
-	if (pipe(pipex.fds) < 0)
+	if (pipe(pipex.fds) == -1)
 		error_msg(ERROR_PIPE);
 	pipex.cmd_dirs = get_cmd_dirs(envp);
-	pipex.pid1 = fork();
-	if (pipex.pid1 == 0)
+	pid1 = fork();
+	if (pid1 == 0)
 		child_1(pipex, argv, envp);
-	pipex.pid2 = fork();
-	if (pipex.pid2 == 0)
+	pid2 = fork();
+	if (pid2 == 0)
 		child_2(pipex, argv, envp);
 	close(pipex.fds[0]);
 	close(pipex.fds[1]);
