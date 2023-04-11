@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/11 19:13:27 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/11 20:09:51 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 char	**get_cmd_dirs(char **envp)
 {
 	char	*tmp;
+	char	**dirs;
 
 	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	tmp = *envp + 5;
-	return (ft_split(tmp, ':'));
+	dirs = ft_split(tmp, ':');
+	return (dirs);
 }
 
 char	*command_check(char **path, char *cmd)
@@ -31,11 +33,13 @@ char	*command_check(char **path, char *cmd)
 	{
 		tmp = ft_strjoin(*path, "/");
 		command = ft_strjoin(tmp, cmd);
-		if (access(command, F_OK) == 0)
+		if (!access(command, X_OK))
+		{
+			free(tmp);
 			return (command);
-		free(tmp);
-		free(command);
+		}
 		path++;
+		free(command);
 	}
 	return (NULL);
 }

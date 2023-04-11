@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/11 19:58:20 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/11 20:21:47 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	redirect(int in, int out)
 {
-	dup2(in, 0);
-	dup2(out, 1);
+	if (dup2(in, 0) == -1)
+	{
+		perror("failed dup2");
+		exit(1);
+	}
+	if (dup2(out, 1) == -1)
+	{
+		perror("failed dup2");
+		exit(1);
+	}
 }
 
 void	child_1(t_pipex pipex, char *argv[], char *envp[])
