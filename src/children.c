@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/12 17:11:33 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/12 17:40:05 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,15 @@ void	grep_check(t_pipex *pipex)
 {
 	int		len;
 	int		i;
-	int		args_num;
 	char	**args;
 	char	*tmp;
 
 	args = pipex->cmd_args;
-	args_num = 0;
-	while (*args)
-	{
-		args_num++;
-		args++;
-	}
-	if (args_num >= 3)
+	i = 0;
+	while (args[i])
+		i++;
+	printf("arg num = %d\n", i);
+	if (i >= 3)
 	{
 		i = 1;
 		len = 0;
@@ -51,13 +48,16 @@ void	grep_check(t_pipex *pipex)
 			i++;
 		}
 		tmp = malloc(sizeof(char) * (len + 1));
+		tmp[0] = '\0';
 		i = 1;
 		while (args[i] != NULL)
 		{
-			ft_strjoin(tmp, args[i]);
+			tmp = ft_strjoin(args[i], " ");
+			ft_strlcat(tmp, args[++i], len + 2);
 			free(args[i]);
 			i++;
 		}
+		printf("tmp = %s\n", tmp);
 		pipex->cmd_args[1] = tmp;
 		free(tmp);
 		i = 2;
