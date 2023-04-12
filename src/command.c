@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/11 20:09:51 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/12 12:47:10 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,18 @@ char	*command_check(char **path, char *cmd)
 	{
 		tmp = ft_strjoin(*path, "/");
 		command = ft_strjoin(tmp, cmd);
+		if (command == NULL)
+		{
+			free(tmp);
+			exit(EXIT_FAILURE);
+		}
 		if (!access(command, X_OK))
 		{
 			free(tmp);
 			return (command);
 		}
 		path++;
+		free(tmp);
 		free(command);
 	}
 	return (NULL);

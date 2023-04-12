@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/11 20:21:47 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/12 12:37:17 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	redirect(int in, int out)
 {
 	if (dup2(in, 0) == -1)
 	{
-		perror("failed dup2");
-		exit(1);
+		perror("failed dup2 for input");
+		exit(errno);
 	}
 	if (dup2(out, 1) == -1)
 	{
-		perror("failed dup2");
-		exit(1);
+		perror("failed dup2 for output");
+		exit(errno);
 	}
 }
 

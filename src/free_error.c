@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/11 20:11:39 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/12 12:49:49 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	error_msg(char	*str)
 {
 	perror(str);
-	exit (EXIT_FAILURE);
 }
 
 void	free_parent(t_pipex *pipex)
