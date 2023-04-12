@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/12 17:40:05 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/12 18:07:20 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,88 +26,71 @@ void	redirect(int in, int out)
 	}
 }
 
-void	grep_check(t_pipex *pipex)
-{
-	int		len;
-	int		i;
-	char	**args;
-	char	*tmp;
-
-	args = pipex->cmd_args;
-	i = 0;
-	while (args[i])
-		i++;
-	printf("arg num = %d\n", i);
-	if (i >= 3)
-	{
-		i = 1;
-		len = 0;
-		while (args[i] != NULL)
-		{
-			len += ft_strlen(args[i]);
-			i++;
-		}
-		tmp = malloc(sizeof(char) * (len + 1));
-		tmp[0] = '\0';
-		i = 1;
-		while (args[i] != NULL)
-		{
-			tmp = ft_strjoin(args[i], " ");
-			ft_strlcat(tmp, args[++i], len + 2);
-			free(args[i]);
-			i++;
-		}
-		printf("tmp = %s\n", tmp);
-		pipex->cmd_args[1] = tmp;
-		free(tmp);
-		i = 2;
-		while (pipex->cmd_args[i] != NULL)
-		{
-			free(pipex->cmd_args[i]);
-			i++;
-		}
-	}
-}
-
 // void	grep_check(t_pipex *pipex)
 // {
+// 	int		len;
 // 	int		i;
-// 	int		j;
 // 	char	**args;
 // 	char	*tmp;
 
 // 	args = pipex->cmd_args;
 // 	i = 0;
-// 	while (*args)
-// 	{
+// 	while (args[i])
 // 		i++;
-// 		args++;
-// 	}
+// 	printf("arg num = %d\n", i);
 // 	if (i >= 3)
 // 	{
-// 		j = 1;
-// 		printf("args : %s\n", args[j]);
-// 		tmp = args[j];
-// 		while (j < i)
+// 		i = 1;
+// 		len = 0;
+// 		while (args[i] != NULL)
 // 		{
-// 			ft_strjoin(tmp, " ");
-// 			ft_strjoin(tmp, args[j + 1]);
-// 			j++;
+// 			len += ft_strlen(args[i]);
+// 			i++;
+// 		}
+// 		tmp = malloc(sizeof(char) * (len + 1));
+// 		tmp[0] = '\0';
+// 		i = 1;
+// 		while (args[i] != NULL)
+// 		{
+// 			tmp = ft_strjoin(args[i], " ");
+// 			ft_strlcat(tmp, args[++i], len + 2);
+// 			free(args[i]);
+// 			i++;
+// 		}
+// 		printf("tmp = %s\n", tmp);
+// 		pipex->cmd_args[1] = tmp;
+// 		free(tmp);
+// 		i = 2;
+// 		while (pipex->cmd_args[i] != NULL)
+// 		{
+// 			free(pipex->cmd_args[i]);
+// 			i++;
 // 		}
 // 	}
-// 	j = 2;
-// 	while (j < i)
-// 	{
-// 		free(pipex->cmd_args[j]);
-// 		j++;
-// 	}
 // }
+void	rest_args(t_pipex *pipex, char *argv)
+{
+	char *first;
+	char *rest;
+	char **args;
+	int	first_len;
+	int	total_len;
+
+	args = ft_split(argv, ' ');
+	total_len = ft_strlen(argv);
+	first = args[0];
+	first_len = ft_strlen(first);
+	rest = ft_substr(argv, (first_len + 1), total_len - first_len - 1);
+	printf("rest = %s\n", rest);
+	pipex->cmd_args[0] = first;
+	printf("args[0] = %s\n", pipex->cmd_args[0]);
+	pipex->cmd_args[1] = rest;
+	printf("args[1] = %s\n", pipex->cmd_args[1]);
+}
 
 void	child_1(t_pipex pipex, char *argv[], char *envp[])
 {
-	pipex.cmd_args = ft_split(argv[2], ' ');
-	if (!ft_strncmp(pipex.cmd_args[0], "grep", 4))
-		grep_check(&pipex);
+	rest_args(&pipex, argv[2]);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
@@ -123,8 +106,6 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 void	child_2(t_pipex pipex, char *argv[], char *envp[])
 {
 	pipex.cmd_args = ft_split(argv[3], ' ');
-	if (!ft_strncmp(pipex.cmd_args[0], "grep", 4))
-		grep_check(&pipex);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
