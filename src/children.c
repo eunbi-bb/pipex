@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/12 18:07:20 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/12 22:46:32 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,68 @@ void	redirect(int in, int out)
 // 		}
 // 	}
 // }
-void	rest_args(t_pipex *pipex, char *argv)
+// void	rest_args(t_pipex *pipex, char *argv)
+// {
+// 	char *first;
+// 	char *rest;
+// 	char **args;
+// 	int	first_len;
+// 	int	total_len;
+
+// 	args = ft_split(argv, ' ');
+// 	total_len = ft_strlen(argv);
+// 	first = args[0];
+// 	first_len = ft_strlen(first);
+// 	rest = ft_substr(argv, (first_len + 1), total_len - first_len - 1);
+// 	printf("first = %s\n", first);
+// 	printf("rest = %s\n", rest);
+// 	pipex->cmd_args[0] = first;
+// 	printf("args[0] = %s\n", pipex->cmd_args[0]);
+// 	pipex->cmd_args[1] = rest;
+// 	printf("args[1] = %s\n", pipex->cmd_args[1]);
+// }
+
+void	multiple_args(t_pipex *pipex, char *argv)
 {
-	char *first;
-	char *rest;
-	char **args;
-	int	first_len;
-	int	total_len;
+	char	**args;
+	int		i;
+	char	**new_args;
+	int		new_arg_index;
+	int		keep_reading;
 
 	args = ft_split(argv, ' ');
-	total_len = ft_strlen(argv);
-	first = args[0];
-	first_len = ft_strlen(first);
-	rest = ft_substr(argv, (first_len + 1), total_len - first_len - 1);
-	printf("rest = %s\n", rest);
-	pipex->cmd_args[0] = first;
-	printf("args[0] = %s\n", pipex->cmd_args[0]);
-	pipex->cmd_args[1] = rest;
-	printf("args[1] = %s\n", pipex->cmd_args[1]);
+	new_args = 0;
+	new_arg_index = 0;
+	keep_reading = 0;
+	i = 0;
+	while (argv[i])
+	{
+		if (keep_reading == 1)
+		{
+			new_args[new_arg_index] = ft_strjoin(new_args[new_arg_index], args[i]);
+		}
+		else
+			new_args[new_arg_index] = args[i];
+		if (args[i][0] == '\'')
+			keep_reading = 1;
+		if (args[i][ft_strlen(args[i])] == '\'')
+			keep_reading = 0;
+		if (keep_reading == 0)
+			new_arg_index++;
+		i++;
+	}
+	pipex->cmd_args = args;
+	int j = 0;
+	while (args[j])
+	{
+		printf("args[%d] =%s\n", j, args[j]);
+		j++;
+	}
 }
 
 void	child_1(t_pipex pipex, char *argv[], char *envp[])
 {
-	rest_args(&pipex, argv[2]);
+	multiple_args(&pipex, argv[2]);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
@@ -105,7 +144,7 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 
 void	child_2(t_pipex pipex, char *argv[], char *envp[])
 {
-	pipex.cmd_args = ft_split(argv[3], ' ');
+	multiple_args(&pipex, argv[3]);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
