@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/15 23:29:41 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/15 23:43:38 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,31 +136,29 @@ void	multiple_args(t_pipex *pipex, char *argv)
 		if (args[i][ft_strlen(args[i]) - 1] == '\'')
 			keep_reading = 0;
 		printf("new_args[%i] : %s\n", new_arg_index, new_args[new_arg_index]);
-		printf("%c\n", args[i][ft_strlen(args[i]) - 1]);
 		if (keep_reading == 0)
 			new_arg_index++;
 		i++;
 	}
+	new_args[new_arg_index] = ft_substr(new_args[new_arg_index], 1, ft_strlen(new_args[new_arg_index]) - 1);
+	printf("test");
+	printf("new_args[%i] : %s\n", new_arg_index, new_args[new_arg_index]);
 	new_args[new_arg_index + 1] = '\0';
 	pipex->cmd_args = new_args;
 	i = 0;
-    while (args[i]) {
-        free(args[i]);
-        i++;
-    }
-    free(args);
-    i = 0;
-    while (new_args[i]) {
-        free(new_args[i]);
-        i++;
-    }
-    free(new_args);
-	// int j = 0;
-	// while (args[j])
+    // while (args[i])
 	// {
-	// 	printf("args[%d] =%s\n", j, args[j]);
-	// 	j++;
-	// }
+    //     free(args[i]);
+    //     i++;
+    // }
+    // free(args);
+    // i = 0;
+    // while (new_args[i])
+	// {
+    //     free(new_args[i]);
+    //     i++;
+    // }
+    // free(new_args);
 }
 
 void	child_1(t_pipex pipex, char *argv[], char *envp[])
@@ -180,8 +178,7 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 
 void	child_2(t_pipex pipex, char *argv[], char *envp[])
 {
-	if (0)
-		multiple_args(&pipex, argv[3]);
+	multiple_args(&pipex, argv[3]);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
