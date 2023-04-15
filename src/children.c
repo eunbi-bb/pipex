@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/15 23:27:24 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/15 23:29:41 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	multiple_args(t_pipex *pipex, char *argv)
 		{
 			if (new_args[new_arg_index][ft_strlen(new_args[new_arg_index]) - 1] != '\'')
 			{
-				strcat(new_args[new_arg_index], args[i]);
 				strcat(new_args[new_arg_index], " ");
+				strcat(new_args[new_arg_index], args[i]);
 			}
 			else
 				strcat(new_args[new_arg_index], args[i]);
