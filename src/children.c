@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/15 22:22:23 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/15 23:21:13 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,23 +118,22 @@ void	multiple_args(t_pipex *pipex, char *argv)
 	{
 		if (keep_reading == 1)
 		{
-			new_args[new_arg_index] = malloc(strlen("") + 1);
-			strcpy(new_args[new_arg_index], "");
+			strcat(new_args[new_arg_index], args[i]);
 		}
 		else
 		{
-			new_args[new_arg_index] = malloc(strlen(args[i]) + 1);
+			new_args[new_arg_index] = malloc(ft_strlen(args[i]) + 1);
 			strcpy(new_args[new_arg_index], args[i]);
 		}
 		if (args[i][0] == '\'')
 			keep_reading = 1;
-		if (args[i][ft_strlen(args[i])] == '\'')
+		if (args[i][ft_strlen(args[i]) - 1] == '\'')
 			keep_reading = 0;
+		printf("new_args[%i] : %s\n", new_arg_index, new_args[new_arg_index]);
+		printf("%c\n", args[i][ft_strlen(args[i]) - 1]);
 		if (keep_reading == 0)
 			new_arg_index++;
 		i++;
-		// printf("args[%i] : %s\n", i, args[i]);
-		printf("new_args[%i] : %s\n", new_arg_index, new_args[new_arg_index]);
 	}
 	new_args[new_arg_index + 1] = '\0';
 	pipex->cmd_args = new_args;
