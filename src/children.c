@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/15 23:43:38 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/16 20:51:03 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,25 @@ void	redirect(int in, int out)
 // }
 #include <string.h>
 
+char	*string_concat(char s1[], char s2[])
+{
+	int i = 0;
+	int j = 0;
+
+	while (s1[i] != '\0')
+	{
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		s1[i] = s2[j];
+		i++;
+		j++;
+	}
+	s1[i] = '\0';
+	return (s1);
+}
+
 void	multiple_args(t_pipex *pipex, char *argv)
 {
 	char	**args;
@@ -109,10 +128,6 @@ void	multiple_args(t_pipex *pipex, char *argv)
 		return ;
 	new_arg_index = 0;
 	keep_reading = 0;
-	// printf("args[0] : %s\n", args[0]);
-	// printf("args[1] : %s\n", args[1]);
-	// printf("args[2] : %s\n", args[2]);
-	// printf("args[3] : %s\n", args[3]);
 	i = 0;
 	while (args[i])
 	{
@@ -120,16 +135,16 @@ void	multiple_args(t_pipex *pipex, char *argv)
 		{
 			if (new_args[new_arg_index][ft_strlen(new_args[new_arg_index]) - 1] != '\'')
 			{
-				strcat(new_args[new_arg_index], " ");
-				strcat(new_args[new_arg_index], args[i]);
+				string_concat(new_args[new_arg_index], " ");
+				string_concat(new_args[new_arg_index], args[i]);
 			}
 			else
-				strcat(new_args[new_arg_index], args[i]);
+				string_concat(new_args[new_arg_index], args[i]);
 		}
 		else
 		{
 			new_args[new_arg_index] = malloc(ft_strlen(args[i]) + 1);
-			strcpy(new_args[new_arg_index], args[i]);
+			ft_strlcpy(new_args[new_arg_index], args[i], ft_strlen(args[i]) + 1);
 		}
 		if (args[i][0] == '\'')
 			keep_reading = 1;
@@ -140,12 +155,11 @@ void	multiple_args(t_pipex *pipex, char *argv)
 			new_arg_index++;
 		i++;
 	}
-	new_args[new_arg_index] = ft_substr(new_args[new_arg_index], 1, ft_strlen(new_args[new_arg_index]) - 1);
-	printf("test");
-	printf("new_args[%i] : %s\n", new_arg_index, new_args[new_arg_index]);
+	new_args[new_arg_index] = ft_substr(new_args[new_arg_index], 2, ft_strlen(new_args[new_arg_index]) - 3);
+	//printf("new_args[last]: %s\n", new_args[2]);
 	new_args[new_arg_index + 1] = '\0';
 	pipex->cmd_args = new_args;
-	i = 0;
+	// i = 0;
     // while (args[i])
 	// {
     //     free(args[i]);
