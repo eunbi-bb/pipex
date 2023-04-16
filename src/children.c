@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/16 21:52:20 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/16 22:34:10 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 	new_args = malloc(sizeof(char *) * (array_size(args) + 1));
 	if (!new_args)
 		return ;
-	multiple_args(&pipex, args, new_args);
+	multiple_args(args, new_args);
+	pipex.cmd_args = new_args;
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
@@ -67,7 +68,8 @@ void	child_2(t_pipex pipex, char *argv[], char *envp[])
 	new_args = malloc(sizeof(char *) * (array_size(args) + 1));
 	if (!new_args)
 		return ;
-	multiple_args(&pipex, args, new_args);
+	multiple_args(args, new_args);
+	pipex.cmd_args = new_args;
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
