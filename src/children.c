@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/16 22:34:10 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/16 23:04:26 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	array_size(char **args)
 	return (arg_num);
 }
 
-void	redirect(int in, int out)
+static void	redirect(int in, int out)
 {
 	if (dup2(in, 0) == -1)
 	{
