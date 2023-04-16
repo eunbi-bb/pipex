@@ -19,28 +19,12 @@ static char	*string_concat(char s1[], char s2[])
 	return (s1);
 }
 
-static int	array_size(char **args)
+void	multiple_args(t_pipex *pipex, char **args, char **new_args)
 {
-	int	arg_num;
-
-	arg_num = 0;
-	while (args[arg_num])
-		arg_num++;
-	return (arg_num);
-}
-
-void	multiple_args(t_pipex *pipex, char *argv)
-{
-	char	**args;
-	char	**new_args;
 	int		i;
 	int		new_arg_index;
 	int		keep_reading;
 
-	args = ft_split(argv, ' ');
-	new_args = malloc(sizeof(char *) * (array_size(args) + 1));
-	if (!new_args)
-		return ;
 	new_arg_index = 0;
 	keep_reading = 0;
 	i = 0;
@@ -73,5 +57,4 @@ void	multiple_args(t_pipex *pipex, char *argv)
 		i++;
 	}
 	new_args[new_arg_index + 1] = '\0';
-	pipex->cmd_args = new_args;
 }
