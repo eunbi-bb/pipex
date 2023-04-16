@@ -36,11 +36,9 @@ void	multiple_args(t_pipex *pipex, char *argv)
 	int		i;
 	int		new_arg_index;
 	int		keep_reading;
-	int		arg_num;
 
 	args = ft_split(argv, ' ');
-	arg_num = array_size(args);
-	new_args = malloc(sizeof(char *) * (arg_num + 1));
+	new_args = malloc(sizeof(char *) * (array_size(args) + 1));
 	if (!new_args)
 		return ;
 	new_arg_index = 0;
@@ -51,12 +49,8 @@ void	multiple_args(t_pipex *pipex, char *argv)
 		if (keep_reading == 1)
 		{
 			if (new_args[new_arg_index][ft_strlen(new_args[new_arg_index]) - 1] != '\'')
-			{
 				string_concat(new_args[new_arg_index], " ");
-				string_concat(new_args[new_arg_index], args[i]);
-			}
-			else
-				string_concat(new_args[new_arg_index], args[i]);
+			string_concat(new_args[new_arg_index], args[i]);
 		}
 		else
 		{
