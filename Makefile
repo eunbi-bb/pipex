@@ -15,7 +15,7 @@ HEADER_SRC	= pipex.h
 HEADERS		= $(addprefix $(HEADER_DIR), $(HEADER_SRC))
 
 SRC_DIR		= src/
-SRC_FILE	= children.c command.c free_error.c pipex.c
+SRC_FILE	= children.c command.c free_error.c multi_arguments.c pipex.c
 
 OBJ			=	$(addprefix $(OBJ_DIR), $(SRC_FILE:.c=.o))
 
