@@ -37,10 +37,7 @@ void	multiple_args(t_pipex *pipex, char **args, char **new_args)
 			string_concat(new_args[new_arg_index], args[i]);
 		}
 		else
-		{
-			new_args[new_arg_index] = malloc(ft_strlen(args[i]) + 1);
-			ft_strlcpy(new_args[new_arg_index], args[i], ft_strlen(args[i]) + 1);
-		}
+			new_args[new_arg_index] = ft_strdup(args[i]);
 		if (args[i][0] == '\'')
 		{
 			keep_reading = 1;
