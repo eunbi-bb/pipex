@@ -57,4 +57,5 @@ void	multiple_args(t_pipex *pipex, char **args, char **new_args)
 		i++;
 	}
 	new_args[new_arg_index + 1] = '\0';
+	pipex->cmd_args = new_args;
 }
