@@ -6,20 +6,36 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/16 23:04:26 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/17 15:28:22 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static int	array_size(char **args)
+int	array_size(char **args)
 {
 	int	arg_num;
 
+	if (args == NULL)
+		return (0);
 	arg_num = 0;
 	while (args[arg_num])
 		arg_num++;
 	return (arg_num);
+}
+
+void	free_newargs(char **new_args)
+{
+	int	i;
+
+	i = 0;
+	while (new_args[i])
+	{
+		free(new_args[i]);
+		new_args[i] = NULL;
+		i++;
+	}
+	free(new_args);
 }
 
 static void	redirect(int in, int out)
@@ -44,18 +60,24 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 	args = ft_split(argv[2], ' ');
 	new_args = malloc(sizeof(char *) * (array_size(args) + 1));
 	if (!new_args)
+	{
+		free_args(args);
 		return ;
+	}
 	multiple_args(args, new_args);
 	pipex.cmd_args = new_args;
+	free_args(args);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
+		free_args(new_args);
 		free_child(&pipex);
 		error_msg(ERROR_CMD);
 		exit(errno);
 	}
 	redirect(pipex.infile, pipex.fds[1]);
 	close(pipex.fds[0]);
+	free_args(new_args);
 	execve(pipex.command, pipex.cmd_args, envp);
 }
 
@@ -67,12 +89,17 @@ void	child_2(t_pipex pipex, char *argv[], char *envp[])
 	args = ft_split(argv[3], ' ');
 	new_args = malloc(sizeof(char *) * (array_size(args) + 1));
 	if (!new_args)
+	{
+		// free_args(args);
 		return ;
+	}
 	multiple_args(args, new_args);
 	pipex.cmd_args = new_args;
+	// free_args(args);
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
+		// free_args(new_args);
 		free_child(&pipex);
 		error_msg(ERROR_CMD);
 		exit(errno);

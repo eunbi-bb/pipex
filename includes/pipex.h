@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/16 22:34:32 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/17 15:22:35 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_pipex
 /*pipex.c*/
 void	get_files(t_pipex *pipex, int argc, char *argv[]);
 /*multi_arguments.c*/
+void	*protec(void *ptr);
 void	multiple_args(char **args, char **new_args);
 /*free_error.c*/
 void	error_msg(char	*msg);
@@ -55,4 +56,6 @@ char	*command_check(char **path, char *cmd);
 /*children.c*/
 void	child_1(t_pipex pipex, char *argv[], char *envp[]);
 void	child_2(t_pipex pipex, char *argv[], char *envp[]);
+void	free_args(char **args);
+int		array_size(char **args);
 #endif
