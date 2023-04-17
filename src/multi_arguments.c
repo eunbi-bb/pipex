@@ -13,12 +13,14 @@ static char	*string_concat(char *s1, char *s2)
 	int j;
 
 	i = 0;
-	while (s1[i] != '\0')
+	if (!s1 || !s2)
+		return (NULL);
+	while (s1[i])
 	{
 		i++;
 	}
 	j = 0;
-	while (s2[j] != '\0')
+	while (s2[j])
 	{
 		s1[i] = s2[j];
 		i++;
@@ -37,7 +39,7 @@ void	multiple_args(char **args, char **new_args)
 	i = 0;
 	while (args[i])
 	{
-		if (new_args[new_arg_index] && new_args[new_arg_index][0] == '\'')
+		if (new_args[new_arg_index] && new_args[new_arg_index][0])
 		{
 			string_concat(new_args[new_arg_index], " ");
 			string_concat(new_args[new_arg_index], args[i]);
