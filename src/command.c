@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/17 15:30:04 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 02:06:49 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ char	*command_check(char **path, char *cmd)
 		}
 		if (!access(command, X_OK))
 		{
-			perror(command);
-			exit(errno);
+			return(command);
 		}
 		path++;
 		free(tmp);
