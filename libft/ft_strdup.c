@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 16:10:21 by eucho         #+#    #+#                 */
-/*   Updated: 2022/12/21 14:03:29 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/18 02:23:58 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*ft_strdup(const char *s1)
 	size_t	size;
 	char	*str;
 
+	if (s1 == NULL)
+		return (NULL);
 	size = ft_strlen(s1) + 1;
 	str = (char *)malloc(size);
 	if (!str)
