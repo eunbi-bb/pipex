@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/11 19:55:57 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/17 15:23:28 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 13:01:51 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	get_files(t_pipex *pipex, int argc, char *argv[])
 	}
 }
 
+static void	close_wait(t_pipex *pipex)
+{
+	close(pipex->fds[0]);
+	close(pipex->fds[1]);
+	waitpid(pipex->pid_1, &pipex->status_1, 0);
+	waitpid(pipex->pid_2, &pipex->status_2, 0);
+}
+
 // void	leak_check()
 // {
 // 	system("leaks -q pipex");
@@ -36,10 +44,7 @@ void	get_files(t_pipex *pipex, int argc, char *argv[])
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
-	int		status_1;
-	int		status_2;
 
-	//atexit(leak_check);
 	if (argc != 5)
 		return (write(STDERR_FILENO, "Invalid argument", 16));
 	get_files(&pipex, argc, argv);
@@ -58,11 +63,8 @@ int	main(int argc, char *argv[], char *envp[])
 		child_2(pipex, argv, envp);
 	else if (pipex.pid_2 == -1)
 		exit(EXIT_FAILURE);
-	close(pipex.fds[0]);
-	close(pipex.fds[1]);
-	waitpid(pipex.pid_1, &status_1, 0);
-	waitpid(pipex.pid_2, &status_2, 0);
-	if (WIFEXITED(status_1) && WIFEXITED(status_2))
+	close_wait(&pipex);
+	if (WIFEXITED(pipex.status_1) && WIFEXITED(pipex.status_2))
 		free_parent(&pipex);
 	return (0);
 }

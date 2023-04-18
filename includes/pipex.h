@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 05:18:46 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/18 13:07:19 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_pipex
 {
 	pid_t	pid_1;
 	pid_t	pid_2;
+	int		status_1;
+	int		status_2;
 	int		fds[2];
 	int		infile;
 	int		outfile;
@@ -43,8 +45,7 @@ typedef struct s_pipex
 /*pipex.c*/
 void	get_files(t_pipex *pipex, int argc, char *argv[]);
 /*multi_arguments.c*/
-void	*protec(void *ptr);
-void	multiple_args(char **args, char **new_args, int new_args_size, t_pipex *pipex);
+void	multiple_args(char **args, char **new, int size);
 /*free_error.c*/
 void	error_msg(char	*msg);
 int		msg(char *msg);
@@ -57,5 +58,9 @@ char	*command_check(char **path, char *cmd);
 void	child_1(t_pipex pipex, char *argv[], char *envp[]);
 void	child_2(t_pipex pipex, char *argv[], char *envp[]);
 void	free_args(char **args);
+/*array_utils.c*/
 int		array_size(char **args);
+int		new_array_size(char *list);
+char	*create_list(char *argv, int i, int j);
+
 #endif

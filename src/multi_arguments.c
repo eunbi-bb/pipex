@@ -1,45 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   multi_arguments.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eucho <eucho@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/04/18 12:03:23 by eucho         #+#    #+#                 */
+/*   Updated: 2023/04/18 13:10:47 by eucho         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/pipex.h"
 
-void	*protec(void *ptr)
-{
-	if (ptr == NULL)
-		exit(1);
-	return (ptr);
-}
-
-void	multiple_args(char **args, char **new_args, int new_args_size, t_pipex *pipex)
+void	multiple_args(char **args, char **new, int size)
 {
 	int		i;
 	int		j;
 
 	j = 0;
 	i = 0;
-	while (args[i] && j < new_args_size)
+	while (args[i] && j < size)
 	{
-		new_args[j] = ft_strdup(args[i]);
-		if (new_args[j][0] != '\'')
+		new[j] = ft_strdup(args[i]);
+		if (new[j][0] != '\'')
 			j++;
-		if (new_args[j] && new_args[j][0] == '\'')
+		if (new[j] && new[j][0] == '\'')
 		{
-			while (new_args[j] && new_args[j][ft_strlen(new_args[j]) - 1] != '\'')
+			while (new[j] && new[j][ft_strlen(new[j]) - 1] != '\'')
 			{
 				i++;
-				new_args[j] = ft_strjoin(new_args[j], " ");
-				new_args[j] = ft_strjoin(new_args[j], args[i]);
+				new[j] = ft_strjoin(new[j], " ");
+				new[j] = ft_strjoin(new[j], args[i]);
 			}
-			if (new_args[j][ft_strlen(new_args[j]) - 1] == '\'')
-				new_args[j] = ft_substr(new_args[j], 1, ft_strlen(new_args[j]) - 2);;
+			if (new[j][ft_strlen(new[j]) - 1] == '\'')
+				new[j] = ft_substr(new[j], 1, ft_strlen(new[j]) - 2);
 		}
 		i++;
 	}
-	//printf("new_args[%d] : %s\n", j, new_args[j]);
-	if (new_args[j] != NULL)
-		new_args[j + 1] = NULL;
-	pipex->cmd_args = new_args;
-	// int n = 0;
-	// while (new_args[n])
-	// {
-	// 	printf("new_args[%d] : %s\n", n, new_args[n]);
-	// 	n++;
-	// }
+	if (new[j] != NULL)
+		new[j + 1] = NULL;
 }
