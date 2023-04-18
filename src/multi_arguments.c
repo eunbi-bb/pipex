@@ -7,36 +7,6 @@ void	*protec(void *ptr)
 	return (ptr);
 }
 
-// static char	*string_concat(char *s1, char *s2)
-// {
-// 	int i;
-// 	int j;
-// 	int	len_1;
-// 	int	len_2;
-// 	char	*str;
-
-// 	if (!s1 || !s2)
-// 		return (NULL);
-// 	len_1 = ft_strlen(s1);
-// 	len_2 = ft_strlen(s2);
-// 	str = malloc(sizeof(char) * (len_1 + len_2 + 1));
-// 	if (!str)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < len_1)
-// 	{
-// 		str[i] = s1[i];
-// 		i++;
-// 	}
-// 	while (j < len_2)
-// 	{
-// 		str[i++] = s2[j];
-// 		j++;
-// 	}
-// 	str[i] = '\0';
-// 	return (str);
-// }
-
 void	multiple_args(char **args, char **new_args, int new_args_size, t_pipex *pipex)
 {
 	int		i;
@@ -62,6 +32,14 @@ void	multiple_args(char **args, char **new_args, int new_args_size, t_pipex *pip
 		}
 		i++;
 	}
-	new_args[j + 1] = NULL;
+	//printf("new_args[%d] : %s\n", j, new_args[j]);
+	if (new_args[j] != NULL)
+		new_args[j + 1] = NULL;
 	pipex->cmd_args = new_args;
+	// int n = 0;
+	// while (new_args[n])
+	// {
+	// 	printf("new_args[%d] : %s\n", n, new_args[n]);
+	// 	n++;
+	// }
 }
