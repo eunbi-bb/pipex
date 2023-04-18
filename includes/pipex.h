@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 17:54:42 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 17:59:56 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define ERROR_OUTFILE "outfile"
 # define ERROR_PIPE "Pipe Error"
 # define ERROR_CMD "command not found"
+
+# define EXIT_CMD 127
 
 typedef struct s_pipex
 {
