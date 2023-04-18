@@ -44,19 +44,21 @@ void	multiple_args(char **args, char **new_args, int new_args_size)
 
 	j = 0;
 	i = 0;
-	while (args[i] && i < new_args_size)
+	while (args[i] && j < new_args_size)
 	{
 		new_args[j] = ft_strdup(args[i]);
 		if (new_args[j][0] != '\'')
 			j++;
-		else if (new_args[j] && new_args[j][0] == '\'')
+		if (new_args[j] && new_args[j][0] == '\'')
 		{
-			new_args[j] = ft_strjoin(new_args[j], " ");
-			new_args[j] = ft_strjoin(new_args[j], args[++i]);
-			if (new_args[j][ft_strlen(new_args[j]) - 1] == '\'')
+			while (new_args[j] && new_args[j][ft_strlen(new_args[j]) - 1] != '\'')
 			{
-				new_args[j] = ft_substr(new_args[j], 1, ft_strlen(new_args[j]) - 2);
+				i++;
+				new_args[j] = ft_strjoin(new_args[j], " ");
+				new_args[j] = ft_strjoin(new_args[j], args[i]);
 			}
+			if (new_args[j][ft_strlen(new_args[j]) - 1] == '\'')
+				new_args[j] = ft_substr(new_args[j], 1, ft_strlen(new_args[j]) - 2);;
 		}
 		i++;
 	}
