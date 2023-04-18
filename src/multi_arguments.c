@@ -40,31 +40,32 @@ static char	*string_concat(char *s1, char *s2)
 void	multiple_args(char **args, char **new_args)
 {
 	int		i;
-	int		new_arg_index;
+	int		j;
 
-	new_arg_index = 0;
+	j = 0;
 	i = 0;
+	printf("new_args[0]: %s\n", new_args[0]);
 	while (args[i])
 	{
-		if (new_args[new_arg_index] && new_args[new_arg_index][0] == '\'')
+		if (new_args[j] && new_args[j][0] == '\'')
 		{
-			string_concat(new_args[new_arg_index], " ");
-			string_concat(new_args[new_arg_index], args[i]);
+			string_concat(new_args[j], " ");
+			string_concat(new_args[j], args[i]);
 			if (args[i][ft_strlen(args[i]) - 1] == '\'')
 			{
-				new_args[new_arg_index] = ft_substr(new_args[new_arg_index], 1, ft_strlen(new_args[new_arg_index]) - 2);
-				new_arg_index++;
+				new_args[j] = ft_substr(new_args[j], 1, ft_strlen(new_args[j]) - 2);
+				j++;
 			}
 		}
 		else
 		{
-			new_args[new_arg_index] = ft_strdup(args[i]);
-			if (new_args[new_arg_index][0] != '\'')
-				new_arg_index++;
+			new_args[j] = ft_strdup(args[i]);
+			if (new_args[j][0] != '\'')
+				j++;
 		}
 		i++;
 	}
-	new_args[new_arg_index + 1] = NULL;
+	new_args[j + 1] = NULL;
 }
 
 // (if == \')
