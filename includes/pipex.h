@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 13:07:19 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 17:54:42 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ERROR_INFILE "infile"
 # define ERROR_OUTFILE "outfile"
 # define ERROR_PIPE "Pipe Error"
-# define ERROR_CMD "Command not found"
+# define ERROR_CMD "command not found"
 
 typedef struct s_pipex
 {
@@ -48,6 +48,7 @@ void	get_files(t_pipex *pipex, int argc, char *argv[]);
 void	multiple_args(char **args, char **new, int size);
 /*free_error.c*/
 void	error_msg(char	*msg);
+void 	cmd_error(char *cmd);
 int		msg(char *msg);
 void	free_parent(t_pipex *pipex);
 void	free_child(t_pipex *pipex);

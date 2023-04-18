@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 17:45:58 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 17:57:57 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
-		error_msg(pipex.cmd_args[0]);
+		cmd_error(pipex.cmd_args[0]);
 		free_child(&pipex);
-		exit(errno);
+		exit(1);
 	}
 	redirect(pipex.infile, pipex.fds[1]);
 	close(pipex.fds[0]);
@@ -77,9 +77,9 @@ void	child_2(t_pipex pipex, char *argv[], char *envp[])
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
 	if (pipex.command == NULL)
 	{
-		error_msg(pipex.cmd_args[0]);
+		cmd_error(pipex.cmd_args[0]);
 		free_child(&pipex);
-		exit(errno);
+		exit(1);
 	}
 	redirect(pipex.fds[0], pipex.outfile);
 	close(pipex.fds[1]);
