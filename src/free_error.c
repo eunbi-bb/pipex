@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 17:57:04 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 21:10:06 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	free_parent(t_pipex *pipex)
 	int	i;
 
 	i = 0;
-	while (pipex->cmd_dirs[i])
+	while (pipex->cmd_dirs && pipex->cmd_dirs[i])
 	{
 		free(pipex->cmd_dirs[i]);
 		i++;
