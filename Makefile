@@ -28,8 +28,6 @@ all: $(NAME)
 
 $(NAME):	$(OBJ) $(OBJF)
 			@make -C $(LIBFT)
-			@cp libft/libft.a .
-			@mv libft.a $(NAME)
 			@$(CC) $(CFLAGS) $(OBJ) libft/libft.a -o $(NAME)
 			@echo "$(CYAN_B)- pipex is compiled -"
 
