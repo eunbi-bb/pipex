@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 04:01:24 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/18 05:18:46 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_pipex
 void	get_files(t_pipex *pipex, int argc, char *argv[]);
 /*multi_arguments.c*/
 void	*protec(void *ptr);
-void	multiple_args(char **args, char **new_args, int new_args_size);
+void	multiple_args(char **args, char **new_args, int new_args_size, t_pipex *pipex);
 /*free_error.c*/
 void	error_msg(char	*msg);
 int		msg(char *msg);
