@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 19:23:09 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 21:50:17 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 	multiple_args(args, new_args, new_args_size);
 	pipex.cmd_args = new_args;
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
+	if (pipex.cmd_dirs == NULL && access(pipex.cmd_args[0], X_OK) == 0)
+		pipex.command = pipex.cmd_args[0];
 	if (pipex.command == NULL)
 	{
 		cmd_error(pipex.cmd_args[0]);
@@ -75,11 +77,8 @@ void	child_2(t_pipex pipex, char *argv[], char *envp[])
 	multiple_args(args, new_args, new_args_size);
 	pipex.cmd_args = new_args;
 	pipex.command = command_check(pipex.cmd_dirs, pipex.cmd_args[0]);
-	if (pipex.cmd_dirs == NULL)
-	{
-		if (access(pipex.cmd_args[0], X_OK) == 0)
-			pipex.command = pipex.cmd_args[0];
-	}
+	// if (pipex.cmd_dirs == NULL && access(pipex.cmd_args[0], X_OK) == 0)
+	// 	pipex.command = pipex.cmd_args[0];
 	if (pipex.command == NULL)
 	{
 		cmd_error(pipex.cmd_args[0]);
