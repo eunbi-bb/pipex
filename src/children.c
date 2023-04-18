@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:06 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 02:16:00 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/18 02:19:02 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 	}
 	redirect(pipex.infile, pipex.fds[1]);
 	close(pipex.fds[0]);
-	free_args(new_args);
 	execve(pipex.command, pipex.cmd_args, envp);
 }
 
