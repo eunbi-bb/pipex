@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 12:06:18 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/18 13:42:44 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,17 @@ char	**get_cmd_dirs(char **envp)
 	char	*tmp;
 	char	**dirs;
 
-	while (ft_strncmp("PATH", *envp, 4))
+	while (*envp)
+	{
+		if (ft_strncmp(*envp, "PATH", 4) == 0)
+			break ;
 		envp++;
+	}
+	if (*envp == NULL)
+	{
+		error_msg("Path cannot be found");
+		exit(errno);
+	}
 	tmp = *envp + 5;
 	dirs = ft_split(tmp, ':');
 	return (dirs);
