@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/11 19:55:57 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 21:03:13 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/19 20:42:02 by eunbi         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	main(int argc, char *argv[], char *envp[])
 	else if (pipex.pid_2 == -1)
 		exit(EXIT_FAILURE);
 	close_wait(&pipex);
-	if (WIFEXITED(pipex.status_1) && WIFEXITED(pipex.status_2))
-		free_parent(&pipex);
+	free_parent(&pipex);
 	return (0);
 }
