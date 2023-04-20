@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:36 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/18 17:59:56 by eucho         ########   odam.nl         */
+/*   Updated: 2023/04/20 17:25:17 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ void	get_files(t_pipex *pipex, int argc, char *argv[]);
 void	multiple_args(char **args, char **new, int size);
 /*free_error.c*/
 void	error_msg(char	*msg);
-void 	cmd_error(char *cmd);
-int		msg(char *msg);
+void	cmd_error(char *cmd);
+void	free_args(char **args);
 void	free_parent(t_pipex *pipex);
 void	free_child(t_pipex *pipex);
 /*command.c*/
 char	**get_cmd_dirs(char **envp);
 char	*command_check(char **path, char *cmd);
+void	generate_command(t_pipex *pipex);
 /*children.c*/
 void	child_1(t_pipex pipex, char *argv[], char *envp[]);
 void	child_2(t_pipex pipex, char *argv[], char *envp[]);
-void	free_args(char **args);
 /*array_utils.c*/
 int		array_size(char **args);
 int		new_array_size(char *list);

@@ -6,7 +6,7 @@
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/27 09:54:17 by eucho         #+#    #+#                 */
-/*   Updated: 2023/04/19 20:37:07 by eunbi         ########   odam.nl         */
+/*   Updated: 2023/04/20 17:15:10 by eucho         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ char	*command_check(char **path, char *cmd)
 	if (path == NULL)
 		return (NULL);
 	if ((access(cmd, X_OK) == 0))
-	{
-		command = cmd;
-		return (command);
-	}
+		return (cmd);
 	while (*path)
 	{
 		tmp = ft_strjoin(*path, "/");
@@ -60,4 +57,17 @@ char	*command_check(char **path, char *cmd)
 		free(command);
 	}
 	return (NULL);
+}
+
+void	generate_command(t_pipex *pipex)
+{
+	pipex->command = command_check(pipex->cmd_dirs, pipex->cmd_args[0]);
+	if (pipex->cmd_dirs == NULL && access(pipex->cmd_args[0], X_OK) == 0)
+		pipex->command = pipex->cmd_args[0];
+	if (pipex->command == NULL)
+	{
+		cmd_error(pipex->cmd_args[0]);
+		free_child(pipex);
+		exit(EXIT_CMD);
+	}
 }
