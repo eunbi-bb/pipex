@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   multi_arguments.c                                  :+:    :+:            */
+/*   single_quotation.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: eucho <eucho@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
@@ -12,7 +12,7 @@
 
 #include "../includes/pipex.h"
 
-void	multiple_args(char **args, char **new, int size)
+void	single_quotation(char **args, char **new, int size)
 {
 	int		i;
 	int		j;
