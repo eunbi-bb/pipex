@@ -47,7 +47,7 @@ typedef struct s_pipex
 /*pipex.c*/
 void	get_files(t_pipex *pipex, int argc, char *argv[]);
 /*multi_arguments.c*/
-void	multiple_args(char **args, char **new, int size);
+void	single_quotation(char **args, char **new, int size);
 /*free_error.c*/
 void	error_msg(char	*msg);
 void	cmd_error(char *cmd);
