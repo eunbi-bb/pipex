@@ -40,7 +40,7 @@ void	child_1(t_pipex pipex, char *argv[], char *envp[])
 		free_args(args);
 		return ;
 	}
-	multiple_args(args, new_args, new_args_size);
+	single_quotation(args, new_args, new_args_size);
 	pipex.cmd_args = new_args;
 	generate_command(&pipex);
 	redirect(pipex.infile, pipex.fds[1]);
@@ -66,7 +66,7 @@ void	child_2(t_pipex pipex, char *argv[], char *envp[])
 		free_args(args);
 		return ;
 	}
-	multiple_args(args, new_args, new_args_size);
+	single_quotation(args, new_args, new_args_size);
 	pipex.cmd_args = new_args;
 	generate_command(&pipex);
 	redirect(pipex.fds[0], pipex.outfile);
